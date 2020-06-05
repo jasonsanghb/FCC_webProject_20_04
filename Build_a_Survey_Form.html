@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        /*问题1：让#main相对于body绝对定位，但是#main的高度很长，使得滚轮滚动时，#main滚动，页面不动*/
+        /*解决方法：因为最后是让#main滚动，所以#main肯定是在文档流里面的。但是我用绝对定位也做成功了，详见52-55行*/
+        /*但是页面没动，说明页面已经脱离文档流，使用固定定位了，*/
+        /*但是如果是body使用固定定位，那整个页面都脱离文档流了，#main也脱离文档流了，和前面不符*/
+        /*所以是body里面有一个元素，只是宽高和body一样，用了固定定位，这里使用的是::before伪元素*/
+
+        /*问题2：页面中的背景图中有透明且渐变的背景色*/
+        /*解决方法：利用多背景属性，给背景图片添加有渐变效果的且带有透明度的背景颜色*/
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        :root{
+            --white:#fff;
+            --font20:20px;
+
+        }
+
+        body {
+            position: relative;
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+
+            color:var(--white);
+        }
+        ul{
+            list-style: none;
+        }
+        body::before{
+            content: "";
+            position: fixed;
+            top:0;
+            left:0;
+            width: 100%;
+            height: 100%;
+            z-index:-1;
+            background-image: linear-gradient(to right,rgba(58, 58, 158, 0.8), rgba(136, 136, 206, 0.7)),url("https://cdn.freecodecamp.org/testable-projects-fcc/images/survey-form-background.jpeg");
+            background-position: center;
+            background-size: cover;
+        }
+
+        /*让一个绝对定位的元素，设置了left和top值了，怎么让其在页面收缩时，还是保持水平居中*/
+        /*left不写死，left:50%;transform: translateX(-50%);*/
+
+        #main{
+            /*position: absolute;*/
+            /*top:50px;*/
+            /*left:50%;*/
+            /*transform: translateX(-50%);*/
+            width: 700px;
+            margin: 0 auto;
+        }
+        /*当屏幕处于超小屏幕下，#main由width:800px,变成width：500px*/
+        @media screen and (max-width: 767px) {
+            #main{
+                width: 500px;
+            }
+        }
+        #header{
+
+            text-align: center;
+
+        }
+        #title{
+            font-size: 30px;
+            font-weight: 400;
+        }
+        #description{
+            margin: 10px 0 25px;
+            font-style: italic;
+        }
+        
+        #body{
+
+            background-color: rgba(0,0,0,0.5);
+        }
+        #survey-form{
+            padding: 50px;
+            font-size: var(--font20);
+        }
+        #survey-form li{
+            margin-bottom: 30px;
+        }
+        /*label标签默认是行内标签*/
+        #survey-form label{
+            display: block;
+            margin-bottom: 10px;
+        }
+        /*表单元素内的字体大小和颜色都和外面设置的不一样，需要重新设置*/
+        #survey-form li:nth-child(-n+3) input,#survey-form select,#survey-form textarea{
+            box-sizing: border-box;
+            width: 100%;
+            height: 40px;
+            padding: 0 15px;
+            border-radius: 5px;
+            font-size: 18px;
+            color:#75758B;
+        }
+        #survey-form li:nth-child(5) div {
+            height: 40px;
+        }
+        #survey-form [type="radio"]{
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+
+        }
+        #survey-form li:nth-child(7) div {
+            height: 30px;
+        }
+        #survey-form [type="checkbox"]{
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+        }
+
+        #survey-form textarea{
+            height: 120px;
+            border-radius:0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        #survey-form span{
+            font-size: 14px;
+        }
+        /*按钮中的字体大小和颜色需要单独设置*/
+        #survey-form li:last-child input{
+            width: 100%;
+            height: 40px;
+            background-color: #37AF65;
+            border: 0;
+            border-radius: 2px;
+            color:var(--white);
+            font-size: var(--font20);
+        }
+
+
+
+
+    </style>
+</head>
+
+<body>
+<!--需求 1：我能看见一个 H1 大小id="title"的标题。-->
+<!--需求 2：我能看见一个 P 大小id="description"的简述文字。-->
+<!--需求 3：我能看见一个id="survey-form"的form。-->
+<!--需求 4：在 form 元素内，我需要在id="name"的字段中输入我的名字。-->
+<!--需求 5：在 form 元素内，我需要在id="email"的字段中输入邮箱。-->
+<!--需求 6：如果我输入了格式不正确的邮箱，我将会看见验证错误信息。-->
+<!--需求 7：在表单内，我可以在id="number"的字段中输入数字。-->
+<!--需求 8：如果我在数字输入框内输入非数字，我将会看见验证错误信息。-->
+<!--需求 9：如果我输入的数字超出了范围（使用min和max属性定义），我将会看见验证错误信息。-->
+<!--需求 10：对于表单中的名称，邮箱和数字输入框应该使用对应 id 为id="name-label"、id="email-label"、id="number-label"的描述标签-->
+<!--需求 11：在表单中的名称，邮箱和数字输入框中，我能看到各自的描述文字作为占位符。-->
+<!--需求 12：在表单元素内，我可以在id="dropdown"的下拉列表中选择一个选项。-->
+<!--需求 13：在表单元素内，我可以从一组或多组单选按钮中选择一个字段。每组使用name属性进行分组。-->
+<!--需求 14：在表单元素内，我可以从一系列复选框中选择几个字段，每个复选框都必须具有 value 属性。-->
+<!--需求 15：在表单元素内，我能看见在最后有个textarea用于附加注释。-->
+<!--需求 16：在表单元素内，我能看见一个id="submit"的按钮，用于提交我所有的输入-->
+
+
+<div id="main">
+    <div id="header">
+        <h1 id="title">freeCodeCamp Survey Form</h1>
+        <p id="description">Thank you for taking the time to help us improve the platform</p>
+    </div>
+    <div id="body">
+        <form action="" id="survey-form">
+            <ul>
+                <li>
+                    <label for="name" id="name-label">Name</label>
+                    <input type="text" id="name" name="name" placeholder="Enter your name" required>
+                </li>
+                <li>
+                    <label for="email" id="email-label">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your Email" required>
+                </li>
+                <li>
+                    <label for="number" id="number-label">Age <span>(optional)</span></label>
+                    <input type="number" id="number" name="age" placeholder="Age" min="10" max="60">
+                </li>
+                <li>
+                    <label>Which option best describes your current role?</label>
+                    <select name="role" id="dropdown">
+                        <option value="0" disabled selected>Select current role</option>
+                        <option value="1">student</option>
+                        <option value="2">Full Time Job</option>
+                        <option value="3">Full Time Learner</option>
+                        <option value="4">Prefer not to say</option>
+                        <option value="5">Other</option>
+                    </select>
+                </li>
+                <li>
+                    <label>Would you recommend freeCodeCamp to a friend?</label>
+                    <div>
+                        <input type="radio" name="isRecommend" value="0">Definitely
+                    </div>
+                    <div>
+                        <input type="radio" name="isRecommend" value="1">Maybe
+                    </div>
+                    <div>
+                        <input type="radio" name="isRecommend" value="2">Not sure
+                    </div>
+
+                </li>
+                <li>
+                    <label>What is your favorite feature of freeCodeCamp?</label>
+                    <select name="favorite" id="favorite">
+                        <option value="0" selected disabled>Select an option</option>
+                        <option value="1">Challenges</option>
+                        <option value="2">Projects</option>
+                        <option value="3">Community</option>
+                        <option value="4">Open source</option>
+                    </select>
+                </li>
+                <li>
+                    <label>What would you like to see improved? <span>(Check all that apply)</span></label>
+                    <div><input type="checkbox" value="Front-end Projects">Front-end Projects</div>
+                    <div><input type="checkbox" value="Back-end Projects">Back-end Projects</div>
+                    <div><input type="checkbox" value="Data Visualization">Data Visualization</div>
+                    <div><input type="checkbox" value="Challenges">Challenges</div>
+                    <div><input type="checkbox" value="Open Source Community">Open Source Community</div>
+                    <div><input type="checkbox" value="Gitter help rooms">Gitter help rooms</div>
+                    <div><input type="checkbox" value="Videos">Videos</div>
+                    <div><input type="checkbox" value="City Meetups">City Meetups</div>
+                    <div><input type="checkbox" value="Wiki">Wiki</div>
+                    <div><input type="checkbox" value="Forum">Forum</div>
+                    <div><input type="checkbox" value="Additional Courses">Additional Courses</div>
+                </li>
+                <li>
+                    <label>Any comments or suggestions?</label>
+                    <textarea name="" id="" cols="30" rows="10" placeholder="Enter your comment here..."></textarea>
+                </li>
+                <li>
+                    <input id="submit" type="submit" value="submit">
+                </li>
+            </ul>
+
+
+
+
+
+
+
+
+
+            <script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js"></script>
+        </form>
+    </div>
+</div>
+</body>
+</html>

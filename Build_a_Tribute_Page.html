@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        html{
+            font-size: 10px;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
+            font-size: 1.6rem;
+            line-height: 1.5;
+            text-align: center;
+            color: #333;
+        }
+        ul{
+            list-style: none;
+        }
+        #main{
+            box-sizing: border-box;
+            width: 100%;
+            margin: 30px 10px;
+            padding-bottom: 20px;
+            background-color: #eee;
+        }
+
+        #title{
+            height: 160px;
+            line-height: 160px;
+            text-align: center;
+        }
+        #tribute-title #title{
+            font-size: 4rem;
+        }
+        #sub-title{
+            margin:-20px 0 20px;
+            text-align: center;
+        }
+        #img-div{
+            padding: 0 5px;
+            margin: 0 10px;
+            background-color: #fff;
+        }
+        #img-div img{
+            max-width: 100%;
+            display: block;
+            margin: 0 auto;
+        }
+        #img-caption{
+            padding: 10px;
+        }
+        #tribute-info{
+            padding: 0 50px 50px;
+        }
+        #header-info{
+            height: 100px;
+            line-height: 100px;
+            font-size: 20px;
+        }
+        #main-info{
+            text-align: left;
+        }
+        #main-info li{
+            position: relative;
+            max-width: 500px;
+            padding-left: 15px;
+            line-height: 30px;
+            margin: 0 auto;
+            margin-bottom: 15px;
+        }
+        #main-info li::before{
+            content: "";
+            position: absolute;
+            left:0;
+            top: 12px;
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background-color: #000;
+
+        }
+        #main-info li span{
+            font-weight: bold;
+        }
+        #main-info li span::after{
+            font-weight: normal;
+            content: "-";
+        }
+        #famous-words{
+            max-width: 500px;
+            margin: 0 auto;
+            font-style: italic;
+            text-align: left;
+        }
+        #link{
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            padding: 0 20px;
+        }
+        #link a{
+            border-bottom: 1px solid #477ca7;
+            color:#477ca7;
+            text-decoration: none;
+
+        }
+    </style>
+</head>
+<!--需求 1：我的致敬页应有对应id="main"的元素，其中包含其他的所有元素-->
+<!--需求 2：我应该看到一个具有相应id="title"的元素，其中包含描述致敬页主题的字符串（即文本），如 "Dr. Norman Borlaug"。-->
+<!--需求 3：我应该看到一个带有对应id="img-div"的div元素。-->
+<!--需求 4：在img-div元素内，我应该看见有对应id="image"的img元素。-->
+<!--需求 5：在img-div元素内，我应该看见一个具有相应id="img-caption"的元素，其中包含对img-div中图像的描述。-->
+<!--需求 6：我应该看见具有对应id="tribute-info"的元素，其中包含描述致敬页主题的文本内容-->
+<!--需求 7：我应该看见具有对应id="tribute-link"的元素，它链接到一个包含有关致敬页主题额外信息的外部网页，提示：你必须为元素提供target属性，并设置为_blank以便在新选项卡中打开连接（例target="_blank"）。-->
+<!--需求 8：img元素应相对于其父元素的宽度响应地调整大小，但不超过其原始大小。-->
+<!--需求 9：img在其父元素内居中。-->
+<body>
+<div id="main">
+    <div id="tribute-title">
+
+        <h1 id="title">Dr. Norman Borlaug</h1>
+
+        <div id="sub-title">The man who saved a billion lives</div>
+    </div>
+    <div id="img-div">
+        <img id="image" src="https://c2.staticflickr.com/4/3689/10613180113_fdf7bcd316_b.jpg" alt="">
+        <div id="img-caption">Dr. Norman Borlaug, third from the left, trains biologists in Mexico on how to increase wheat yields - part of his life-long war on hunger.</div>
+    </div>
+    <div id="tribute-info">
+        <h4 id="header-info">
+            Here's a time line of Dr. Borlaug's life:
+        </h4>
+        <ul id="main-info">
+            <li><span>1914 </span> Born in Cresco, Iowa</li>
+            <li><span>1933 </span> Leaves his family's farm to attend the University of Minnesota, thanks to a Depression era program known as the "National Youth Administration"</li>
+            <li><span>1935 </span> Has to stop school and save up more money. Works in the Civilian Conservation Corps, helping starving Americans. "I saw how food changed them", he said. "All of this left scars on me."</li>
+            <li><span>1937 </span> Finishes university and takes a job in the US Forestry Service</li>
+            <li><span>1938 </span> Marries wife of 69 years Margret Gibson. Gets laid off due to budget cuts. Inspired by Elvin Charles Stakman, he returns to school study under Stakman, who teaches him about breeding pest-resistent plants.</li>
+            <li><span>1941 </span> Tries to enroll in the military after the Pearl Harbor attack, but is rejected. Instead, the military asked his lab to work on waterproof glue, DDT to control malaria, disinfectants, and other applied science.</li>
+            <li><span>1942 </span> Receives a Ph.D. in Genetics and Plant Pathology</li>
+            <li><span>1944 </span> Rejects a 100% salary increase from Dupont, leaves behind his pregnant wife, and flies to Mexico to head a new plant pathology program. Over the next 16 years, his team breeds 6,000 different strains of disease resistent wheat - including different varieties for each major climate on Earth.</li>
+            <li><span>1945 </span> Discovers a way to grown wheat twice each season, doubling wheat yields</li>
+            <li><span>1953 </span> crosses a short, sturdy dwarf breed of wheat with a high-yeidling American breed, creating a strain that responds well to fertilizer. It goes on to provide 95% of Mexico's wheat.</li>
+            <li><span>1962 </span> Visits Delhi and brings his high-yielding strains of wheat to the Indian subcontinent in time to help mitigate mass starvation due to a rapidly expanding population</li>
+            <li><span>1970 </span> receives the Nobel Peace Prize</li>
+            <li><span>1983 </span> helps seven African countries dramatically increase their maize and sorghum yields</li>
+            <li><span>1984 </span> becomes a distinguished professor at Texas A&M University</li>
+            <li><span>2005 </span> states "we will have to double the world food supply by 2050." Argues that genetically modified crops are the only way we can meet the demand, as we run out of arable land. Says that GM crops are not inherently dangerous because "we've been genetically modifying plants and animals for a long time. Long before we called it science, people were selecting the best breeds."</li>
+            <li><span>2009 </span> dies at the age of 95.</li>
+        </ul>
+        <div id="famous-words">
+
+            <p>"Borlaug's life and achievement are testimony to the far-reaching contribution that one man's towering intellect, persistence and scientific vision can make to human peace and progress."</p>
+            <p>-- Indian Prime Minister Manmohan Singh</p>
+             </div>
+    </div>
+    <div id="link">
+        If you have time, you should read more about this incredible human being on his  <a id="tribute-link" href="" target="_blank">Wikipedia entry</a>.
+    </div>
+</div>
+</body>
+</html>
